@@ -1,1 +1,45 @@
-<!DOCTYPE html><html><head><title>Test App</title></head><body><h1>Hello World</h1><p>Welcome to the test app</p><button id="btn">Click Me</button><script>document.getElementById("btn").onclick=function(){alert("Clicked!")}</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    #btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    #btn:hover {
+      background: #1d4ed8;
+    }
+    #counter {
+      margin-top: 12px;
+      font-size: 18px;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hello World</h1>
+  <p>Welcome to the test app</p>
+  <button id="btn">Click Me</button>
+  <div id="counter">Clicks: 0</div>
+  <script>
+    var count = 0;
+    document.getElementById("btn").onclick = function() {
+      count++;
+      document.getElementById("counter").textContent = "Clicks: " + count;
+    };
+  </script>
+</body>
+</html>
