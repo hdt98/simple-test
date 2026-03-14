@@ -22,6 +22,35 @@
     #btn:hover {
       background: #1d4ed8;
     }
+    #greeting {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    #name-input {
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    #greet-btn {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #greet-btn:hover {
+      background: #15803d;
+    }
+    #greeting-output {
+      margin-top: 12px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #1f2937;
+    }
     #counter {
       margin-top: 12px;
       font-size: 18px;
@@ -32,6 +61,11 @@
 <body>
   <h1>Hello World</h1>
   <p>Welcome to the test app</p>
+  <div id="greeting">
+    <input id="name-input" type="text" placeholder="Enter your name" />
+    <button id="greet-btn">Say Hello</button>
+    <p id="greeting-output"></p>
+  </div>
   <button id="btn">Click Me</button>
   <div id="counter">Clicks: 0</div>
   <script>
@@ -39,6 +73,15 @@
     document.getElementById("btn").onclick = function() {
       count++;
       document.getElementById("counter").textContent = "Clicks: " + count;
+    };
+    document.getElementById("greet-btn").onclick = function() {
+      var name = document.getElementById("name-input").value.trim();
+      var output = document.getElementById("greeting-output");
+      if (name) {
+        output.textContent = "Hello, " + name + "!";
+      } else {
+        output.textContent = "Hello, World!";
+      }
     };
   </script>
 </body>
