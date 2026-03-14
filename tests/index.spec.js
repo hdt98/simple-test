@@ -43,7 +43,7 @@ test.describe("Test App - QA Verification", () => {
   });
 
   test("welcome paragraph is visible", async ({ page }) => {
-    const paragraph = page.locator("p");
+    const paragraph = page.locator("p").first();
     await expect(paragraph).toBeVisible();
     await expect(paragraph).toHaveText("Welcome to the test app");
   });
@@ -82,7 +82,7 @@ test.describe("Test App - QA Verification", () => {
     expect(h1Count).toBe(1);
 
     const buttonCount = await page.locator("button").count();
-    expect(buttonCount).toBe(1);
+    expect(buttonCount).toBe(2);
 
     const counterCount = await page.locator("#counter").count();
     expect(counterCount).toBe(1);
@@ -93,5 +93,49 @@ test.describe("Test App - QA Verification", () => {
     const bgColor = await button.evaluate((el) => getComputedStyle(el).backgroundColor);
     // #2563eb = rgb(37, 99, 235)
     expect(bgColor).toBe("rgb(37, 99, 235)");
+  });
+
+  test("greeting with name shows personalized message", async ({ page }) => {
+    const input = page.locator("#name-input");
+    const greetBtn = page.locator("#greet-btn");
+    const output = page.locator("#greeting-output");
+
+    await expect(input).toBeVisible();
+    await expect(greetBtn).toBeVisible();
+    await expect(greetBtn).toHaveText("Say Hello");
+
+    await input.fill("Alice");
+    await greetBtn.click();
+    await expect(output).toHaveText("Hello, Alice!");
+  });
+
+  test("greeting without name shows default message", async ({ page }) => {
+    const greetBtn = page.locator("#greet-btn");
+    const output = page.locator("#greeting-output");
+
+    await greetBtn.click();
+    await expect(output).toHaveText("Hello, World!");
+  });
+
+  test("greeting updates when name changes", async ({ page }) => {
+    const input = page.locator("#name-input");
+    const greetBtn = page.locator("#greet-btn");
+    const output = page.locator("#greeting-output");
+
+    await input.fill("Bob");
+    await greetBtn.click();
+    await expect(output).toHaveText("Hello, Bob!");
+
+    await input.clear();
+    await input.fill("Charlie");
+    await greetBtn.click();
+    await expect(output).toHaveText("Hello, Charlie!");
+  });
+
+  test("greet button has proper styling", async ({ page }) => {
+    const greetBtn = page.locator("#greet-btn");
+    const bgColor = await greetBtn.evaluate((el) => getComputedStyle(el).backgroundColor);
+    // #16a34a = rgb(22, 163, 74)
+    expect(bgColor).toBe("rgb(22, 163, 74)");
   });
 });
